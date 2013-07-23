@@ -95,9 +95,6 @@ class MultisiteMaintenanceMode {
      */
 	  add_action( 'network_admin_menu', array( $this, 'plugin_admin_menu' ) );
 
-		// Load the Github Updater for non-WP repository plugins
-		// add_action( 'plugins_loaded', array( $this, 'github_updater' ) );
-
     /**
      * If maintenance mode is on, block the admin area and notify users.
      */
@@ -154,39 +151,6 @@ class MultisiteMaintenanceMode {
 		echo $settings_page;
 
 	} // end plugin_admin_page
-	
-	/**
-	 * Check the plugin GitHub repository for updates.
-	 */
-	public function github_updater() {
-
-		/**
-		 * Leave the following definition set to false until you are testing the update feature.
-		 * Return to false when you are ready to distribute.
-		 */
-		if ( ! defined( 'WP_GITHUB_FORCE_UPDATE' ) )
-			define( 'WP_GITHUB_FORCE_UPDATE', false );
-
-		if ( is_admin() ) { // note the use of is_admin() to double check that this is happening in the admin
-
-		$config = array(
-			'slug'               => plugin_basename( __FILE__ ),
-			'proper_folder_name' => 'multisite-maintenance-mode',
-			'api_url'            => 'https://api.github.com/repos/channeleaton/multisite-maintenance-mode',
-			'raw_url'            => 'https://raw.github.com/channeleaton/multisite-maintenance-mode/master',
-			'github_url'         => 'https://github.com/channeleaton/respoitory',
-			'zip_url'            => 'https://github.com/channeleaton/multisite-maintenance-mode/zipball/master',
-			'sslverify'          => true,
-			'requires'           => '3.0',
-			'tested'             => '3.5.2',
-			'readme'             => 'README.txt',
-		);
-
-		$updater = new Updater( $config );
-
-		}
-
-	}
 
 	/**
 	 * Autoloads classes in the 'vendor' directory
