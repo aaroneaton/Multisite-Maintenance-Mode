@@ -17,10 +17,11 @@ class MMM_DisableLogins {
 
 	public function admin_notice( $wp_admin_bar ) {
 
+		$link = get_site_option( 'mmm-link', '' );
 		$args = array(
 			'id' => 'maintenance_notice',
 			'title' => 'This site is in maintenance mode. The admin area is temporarily unavailable. Click for more info.',
-			'href' => 'http://agrilife.org/communications',
+			'href' => $link,
 			'meta' => array( 'class' => 'maintenance-mode' ),
 		);
 
