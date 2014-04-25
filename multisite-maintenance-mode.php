@@ -114,8 +114,8 @@ class MultisiteMaintenanceMode {
 	
 		add_submenu_page(
 			'settings.php',
-			'Multisite Maintenance Mode',
-			'Multisite Maintenance Mode',
+			__( 'Multisite Maintenance Mode', 'multisite-maintenance-mode' ),
+			__( 'Multisite Maintenance Mode', 'multisite-maintenance-mode' ),
 			'update_core',
 			'multisite-maintenance-mode',
 			array( $this, 'plugin_admin_page' )
