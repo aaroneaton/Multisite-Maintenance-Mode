@@ -67,19 +67,7 @@ class MultisiteMaintenanceMode {
 	 * Constructor
 	 *--------------------------------------------*/
 	 
-	/**
-	 * Creates or returns an instance of this class.
-	 *
-	 * @return	MultisiteMaintenanceMode	A single instance of this class.
-	 */
-	public function get_instance() {
-		return null == self::$instance ? new self : self::$instance;
-	} // end get_instance;
-
-	/**
-	 * Initializes the plugin by setting localization, filters, and administration functions.
-	 */
-	private function __construct() {
+	public function __construct() {
 
 		// Save the plugin path
 		$this->path = plugin_dir_path( __FILE__ );
@@ -190,4 +178,4 @@ class MultisiteMaintenanceMode {
 
 } // end class
 
-MultisiteMaintenanceMode::get_instance();
+new MultisiteMaintenanceMode();
