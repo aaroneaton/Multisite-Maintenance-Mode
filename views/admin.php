@@ -10,6 +10,11 @@
 			update_site_option( 'mmm-status', $value );
 		}
 
+		if ( isset( $_POST['mmm-message'] ) ) {
+			$value = stripslashes_deep( $_POST['mmm-message'] );
+			update_site_option( 'mmm-message', $value );
+		}
+
 		if ( isset( $_POST['mmm-link'] ) ) {
 			$value = stripslashes_deep( $_POST['mmm-link'] );
 			update_site_option( 'mmm-link', $value );
@@ -36,6 +41,17 @@
 					<label><input name="mmm-status" type="radio" id="mmm-status-off" value="off" <?php checked( $status, 'off' ); ?> /> <?php _e( 'Off', 'multisite-maintenance-mode' ); ?></label><br />
 					<label><input name="mmm-status" type="radio" id="mmm-status-on" value="on" <?php checked( $status, 'on' ); ?> /> <?php _e( 'On', 'multisite-maintenance-mode' ); ?></label><br />
 				</td>
+			</tr>
+			<tr>
+				<th scope="row"><label for="mmm-message"><?php _e( 'Admin bar message', 'multisite-maintenance-mode' ); ?></label></th>
+				<?php
+				$message = get_site_option( 'mmm-message' );
+
+				if ( ! $message )
+					$message = '';
+				?>
+				<td>
+					<label><input name="mmm-message" type="text" id="mmm-message" value="<?php echo $message; ?>" /></label>
 			</tr>
 			<tr>
 				<th scope="row"><label for="mmm-link"><?php _e( 'URL to your announcement page', 'multisite-maintenance-mode' ); ?></label></th>
