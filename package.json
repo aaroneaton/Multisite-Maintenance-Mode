@@ -1,11 +1,8 @@
 {
-  "name": "plugin-boilerplate",
+  "name": "multiste-maintenance-mode",
   "version": "0.1.0",
-  "description": "A plugin boilerplate for WordPress using Compass and Coffeescript.",
-  "main": "plugin-boilerplate.php",
-  "scripts": {
-    "test": "test"
-  },
+  "description": "A maintenance mode plugin for WordPress",
+  "main": "multisite-maintenance-mode.php",
   "repository": "",
   "author": "J. Aaron Eaton",
   "license": "GPL2",
@@ -13,11 +10,8 @@
   "gitHead": "1b683c38aa9161f7c9787a8e2c75c47f5444d338",
   "devDependencies": {
     "grunt": "~0.4.1",
-    "grunt-contrib-compass": "~0.2.0",
-    "grunt-contrib-coffee": "~0.7.0",
-    "grunt-contrib-watch": "~0.4.3",
-    "grunt-contrib-jshint": "~0.4.3",
-    "grunt-contrib-csslint": "~0.1.2",
-    "grunt-contrib-cssmin": "~0.6.0"
+    "grunt-po2mo": "~0.1.0",
+    "grunt-pot": "~0.1.2",
+    "grunt-checktextdomain": "~0.1.1"
   }
 }
