@@ -2,8 +2,8 @@
 Contributors: channeleaton
 Tags: multisite, maintenance, login
 Requires at least: 3.3.1
-Tested up to: 3.5.2
-Stable tag: 0.1
+Tested up to: 4.0.0
+Stable tag: 0.2.0
 License: GPLv2 or later
 
 Disables logins for all WordPress users except network administrators.
@@ -24,6 +24,11 @@ Multisite Maintenance Mode solves the problem of site users making content/datab
 1. The MMM settings page.
 
 == Changelog ==
+
+= 0.2.0 =
+* Now ready for translation!
+* Consolidated the PHP for easier maintenance.
+* Added filter 'mmm_allow_user_with_capability' to allow lower-level users to access the WordPress admin.
 
 = 0.1 =
 * Initial code.
