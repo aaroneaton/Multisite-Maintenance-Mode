@@ -2,7 +2,7 @@
 
 ### Author: [J. Aaron Eaton][1]
 
-### Version: 0.2.0
+### Version: 0.2.1
 
 ## Description
 
@@ -38,6 +38,10 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 ## Changelog
+
+### 0.2.1
+
+* Tested with WordPress 4.2.2
 
 ### 0.2.0
 
