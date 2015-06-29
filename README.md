@@ -39,6 +39,10 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 ## Changelog
 
+### 0.2.2
+
+* Added Español translation. Props to Andrew Kurtis of WebHostingHub
+
 ### 0.2.1
 
 * Tested with WordPress 4.2.2
