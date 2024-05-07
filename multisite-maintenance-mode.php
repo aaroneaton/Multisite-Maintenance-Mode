@@ -9,6 +9,7 @@
  * Author Email: aaron@channeleaton.com
  * Text Domain: multisite-maintenance-mode
  * Domain Path: /lang
+ * Network: true
  * License: GPL2
  *
  * Copyright 2015 J. Aaron Eaton (aaron@channeleaton.com)
