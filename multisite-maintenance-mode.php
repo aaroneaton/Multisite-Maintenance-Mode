@@ -224,6 +224,6 @@ class MultisiteMaintenanceMode {
 }
 
 // Instantiate the plugin.
-// if ( defined( 'ABSPATH' ) && is_multisite() ) {
+if ( defined( 'ABSPATH' ) && is_multisite() ) {
 	new MultisiteMaintenanceMode();
-// }
+}
