@@ -1,15 +1,15 @@
 <?php
-
 /**
  * Plugin Name: Multisite Maintenance Mode
  * Plugin URI: https://github.com/channeleaton/Multisite-Maintenance-Mode
  * Description: Disables logins for all WordPress users except network administrators
- * Version: 0.2.2
+ * Version: 0.2.3
  * Author: J. Aaron Eaton
  * Author URI: http://channeleaton.com
  * Author Email: aaron@channeleaton.com
  * Text Domain: multisite-maintenance-mode
  * Domain Path: /lang
+ * Network: true
  * License: GPL2
  *
  * Copyright 2015 J. Aaron Eaton (aaron@channeleaton.com)
@@ -26,46 +26,75 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+ *
+ * @package Multisite_Maintenance_Mode
+ */
 
+/**
+ * Class MultisiteMaintenanceMode
+ *
+ * @since 0.1.0
  */
 class MultisiteMaintenanceMode {
 
-	// The current version number
+	/**
+	 * The current version number.
+	 *
+	 * @var string
+	 */
 	private $version = '0.2.2';
 
-	// The plugin screen slug
+	/**
+	 * The plugin screen slug.
+	 *
+	 * @var string
+	 */
 	private $plugin_slug = 'multisite-maintenance-mode';
 
-	// The plugin path for easy retrieval
+	/**
+	 * The plugin path for easy retrieval.
+	 *
+	 * @var string
+	 */
 	private $path = null;
 
-	// Sets the current MMM status
+	/**
+	 * Sets the current MMM status.
+	 *
+	 * @var bool
+	 */
 	private $status = false;
 
+
+	/**
+	 * Constructor
+	 *
+	 * @since 0.1.0
+	 */
 	public function __construct() {
 
-		// Save the plugin path
+		// Save the plugin path.
 		$this->path = plugin_dir_path( __FILE__ );
 
-		// Get the current MMM status
+		// Get the current MMM status.
 		$this->status = get_site_option( 'mmm-status' );
 
-		// Load plugin text domain
-		add_action( 'init', array( $this, 'plugin_textdomain' ) );
+		// Load plugin text domain.
+		add_action( 'init', [ $this, 'plugin_textdomain' ] );
 
 		// Add the options page and menu item.
-		add_action( 'network_admin_menu', array( $this, 'plugin_admin_menu' ) );
+		add_action( 'network_admin_menu', [ $this, 'plugin_admin_menu' ] );
 
-		// Save the settings
-		add_action( 'network_admin_edit_mmm_save', array( $this, 'save_settings' ), 10, 0 );
+		// Save the settings.
+		add_action( 'network_admin_edit_mmm_save', [ $this, 'save_settings' ], 10, 0 );
 
 		// If maintenance mode is on, block the admin area and notify users.
-		if ( true == $this->status ) {
-			add_action( 'admin_init', array( $this, 'disable_logins' ), 1, 2 );
-			add_action( 'admin_bar_menu', array( $this, 'admin_notice' ) );
+		if ( true === (bool) $this->status ) {
+			add_action( 'admin_init', [ $this, 'disable_logins' ], 1, 2 );
+			add_action( 'admin_bar_menu', [ $this, 'admin_notice' ] );
 		}
-
 	}
+
 
 	/**
 	 * Loads the plugin text domain for translation
@@ -79,7 +108,6 @@ class MultisiteMaintenanceMode {
 
 		load_textdomain( $this->plugin_slug, WP_LANG_DIR . '/' . $this->plugin_slug . '/' . $this->plugin_slug . '-' . $locale . '.mo' );
 		load_plugin_textdomain( $this->plugin_slug, false, dirname( plugin_basename( __FILE__ ) ) . '/lang/' );
-
 	}
 
 	/**
@@ -94,11 +122,10 @@ class MultisiteMaintenanceMode {
 			'settings.php',
 			__( 'Multisite Maintenance Mode', 'multisite-maintenance-mode' ),
 			__( 'Multisite Maintenance Mode', 'multisite-maintenance-mode' ),
-			'update_core',
+			'manage_network',
 			$this->plugin_slug,
-			array( $this, 'plugin_admin_page' )
+			[ $this, 'plugin_admin_page' ]
 		);
-
 	}
 
 	/**
@@ -109,16 +136,15 @@ class MultisiteMaintenanceMode {
 	 */
 	public function plugin_admin_page() {
 
-		// Get the current settings from the database
+		// Get the current settings from the database.
 		$status  = get_site_option( 'mmm-status', false );
 		$message = get_site_option( 'mmm-message', __( 'This network is in maintenance mode.', 'multisite-maintenance-mode' ) );
 		$link    = get_site_option( 'mmm-link', '' );
 
 		// Render the options page. The variables above are passed to the view.
 		ob_start();
-		include_once( 'views/admin.php' );
-		echo ob_get_clean();
-
+		include_once 'views/admin.php';
+		echo ob_get_clean(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	}
 
 	/**
@@ -129,30 +155,32 @@ class MultisiteMaintenanceMode {
 	 */
 	public function save_settings() {
 
-		// Check the nonce
+		// Check the nonce.
 		check_admin_referer( 'mmm-settings' );
 
-		// Save the status
-		$mmm_status = ( isset( $_POST['mmm-status'] ) ) ? stripslashes_deep( $_POST['mmm-status'] ) : 0;
+		// Save the status.
+		$mmm_status = ( isset( $_POST['mmm-status'] ) ) ? sanitize_text_field( wp_unslash( $_POST['mmm-status'] ) ) : 0;
 		update_site_option( 'mmm-status', $mmm_status );
 
-		// Save the message
-		$mmm_message = ( isset( $_POST['mmm-message'] ) ) ? stripslashes_deep( $_POST['mmm-message'] ) : '';
+		// Save the message.
+		$mmm_message = ( isset( $_POST['mmm-message'] ) ) ? sanitize_text_field( wp_unslash( $_POST['mmm-message'] ) ) : '';
 		update_site_option( 'mmm-message', $mmm_message );
 
-		// Save the link
-		$mmm_link = ( isset( $_POST['mmm-link'] ) ) ? stripslashes_deep( $_POST['mmm-link'] ) : '';
+		// Save the link.
+		$mmm_link = ( isset( $_POST['mmm-link'] ) ) ? sanitize_text_field( wp_unslash( $_POST['mmm-link'] ) ) : '';
 		update_site_option( 'mmm-link', $mmm_link );
 
-		// Perform the proper redirect and exit
-		wp_redirect(
+		// Perform the proper redirect and exit.
+		wp_safe_redirect(
 			add_query_arg(
-				array( 'page' => $this->plugin_slug, 'updated' => 'true' ),
+				[
+					'page'    => $this->plugin_slug,
+					'updated' => 'true',
+				],
 				network_admin_url( 'settings.php' )
 			)
 		);
 		exit;
-
 	}
 
 	/**
@@ -166,38 +194,37 @@ class MultisiteMaintenanceMode {
 		global $current_user;
 
 		if ( ! current_user_can( apply_filters( 'mmm_allow_user_with_capability', 'manage_network' ) ) ) {
-			wp_redirect( home_url() );
+			wp_safe_redirect( home_url() );
 		}
-
 	}
 
 	/**
 	 * Creates the admin bar node to notify users
 	 *
 	 * @since 0.1.0
-	 * @param WP_Admin_Bar $wp_admin_bar
+	 * @param WP_Admin_Bar $wp_admin_bar The WP_Admin_Bar object.
 	 * @return void
 	 */
 	public function admin_notice( WP_Admin_Bar $wp_admin_bar ) {
 
-		// Get the settings from the database
+		// Get the settings from the database.
 		$message = get_site_option( 'mmm-message', __( 'This network is in maintenance mode.', 'multisite-maintenance-mode' ) );
 		$link    = get_site_option( 'mmm-link', '' );
 
-		// Setup the new node arguments
-		$args    = array(
+		// Setup the new node arguments.
+		$args = [
 			'id'    => 'maintenance_notice',
 			'title' => $message,
 			'href'  => $link,
-			'meta'  => array( 'class' => 'maintenance-mode' ),
-		);
+			'meta'  => [ 'class' => 'maintenance-mode' ],
+		];
 
-		// Add the node
+		// Add the node.
 		$wp_admin_bar->add_node( $args );
-
 	}
-
 }
 
-// Instantiate the plugin
-new MultisiteMaintenanceMode();
+// Instantiate the plugin.
+if ( defined( 'ABSPATH' ) && is_multisite() ) {
+	new MultisiteMaintenanceMode();
+}
