@@ -141,8 +141,22 @@ class MultisiteMaintenanceMode {
 		$message = get_site_option( 'mmm-message', __( 'This network is in maintenance mode.', 'multisite-maintenance-mode' ) );
 		$link    = get_site_option( 'mmm-link', '' );
 
+		// Set the notice message. This will be displayed when the settings are saved.
+		$notice = '';
+		if ( isset( $_GET['updated'] ) && 'true' === $_GET['updated'] ) {
+			if ( true === (bool) $status ) {
+				$notice = esc_html__( 'Network maintenance mode enabled.', 'multisite-maintenance-mode' );
+			} else {
+				$notice = esc_html__( 'Network maintenance mode disabled.', 'multisite-maintenance-mode' );
+			}
+		}
+
 		// Render the options page. The variables above are passed to the view.
 		ob_start();
+		if ( ! empty( $notice ) ) {
+			echo '<div class="notice updated is-dismissible"><p>' . esc_html( $notice ) . '</p></div>';
+		}
+
 		include_once 'views/admin.php';
 		echo ob_get_clean(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	}
