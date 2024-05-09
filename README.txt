@@ -1,9 +1,9 @@
 === Multisite Maintenance Mode ===
 Contributors: channeleaton
 Tags: multisite, maintenance, login
-Requires at least: 3.3.1
-Tested up to: 4.2.2
-Stable tag: 0.2.2
+Requires at least: 6.0
+Tested up to: 6.5
+Stable tag: 0.2.3
 License: GPLv2 or later
 
 Disables logins for all WordPress users except network administrators.

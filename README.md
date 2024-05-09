@@ -2,7 +2,7 @@
 
 ### Author: [J. Aaron Eaton][1]
 
-### Version: 0.2.1
+### Version: 0.2.3
 
 ## Description
 
