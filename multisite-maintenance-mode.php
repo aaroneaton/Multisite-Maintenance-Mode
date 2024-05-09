@@ -3,7 +3,7 @@
  * Plugin Name: Multisite Maintenance Mode
  * Plugin URI: https://github.com/channeleaton/Multisite-Maintenance-Mode
  * Description: Disables logins for all WordPress users except network administrators
- * Version: 0.2.3
+ * Version: 0.2.4
  * Author: J. Aaron Eaton
  * Author URI: http://channeleaton.com
  * Author Email: aaron@channeleaton.com
@@ -42,7 +42,7 @@ class MultisiteMaintenanceMode {
 	 *
 	 * @var string
 	 */
-	private $version = '0.2.2';
+	private $version = '0.2.4';
 
 	/**
 	 * The plugin screen slug.
