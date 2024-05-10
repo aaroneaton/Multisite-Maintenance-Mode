@@ -1,0 +1,7 @@
+{
+	"name": "aaroneaton/Multisite-Maintenance-Mode",
+	"description": "Disables logins for all WordPress users except network administrators.",
+	"homepage": "https://github.com/aaroneaton/Multisite-Maintenance-Mode",
+	"require": {},
+	"author": "J. Aaron Eaton"
+}

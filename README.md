@@ -2,7 +2,7 @@
 
 ### Author: [J. Aaron Eaton][1]
 
-### Version: 0.2.1
+### Version: 0.2.4
 
 ## Description
 
@@ -38,6 +38,10 @@ Multisite Maintenance Mode is licensed under the GPL v2 or later.
 > Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
 
 ## Changelog
+
+### 0.2.4
+
+- Add admin notics.
 
 ### 0.2.3
 
